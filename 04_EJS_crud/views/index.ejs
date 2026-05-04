@@ -13,11 +13,16 @@
 
     <a href="/add"> Add Name</a>
 
+
     <ul>
         <% studentList.forEach((s)=> {%>
 
             <li>
                 <%=s.name %>
+                    <a href="/edit/<%= s.id %>">Edit</a>
+
+                    <a href="/delete/<%= s.id %>">Delete</a>
+
             </li>
             <%})%>
     </ul>
