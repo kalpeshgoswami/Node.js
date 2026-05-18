@@ -1,21 +1,25 @@
 
 import express from "express";
 
-import HttpError from "./middleware/HttpError.js";
+import httpError from "./middleware/HttpError.js"
 import connectDB from "./config/DB.js";
+
 import { error } from "node:console";
 
+import StudentRoutes from "./routes/StudentRoutes.js" 
 
 const app = express();
 
 app.use(express.json());
+
+app.use("/student", StudentRoutes)
 
 app.get("/", (req, res) => {
     res.status(200).json("hello from server");
 });
 
 app.use((req, res, next) => {
-    return next(new HttpError("request route not found", 404))
+    return next(new httpError("request route not found", 404))
 })
 
 app.use((error, req, res, next) => {
