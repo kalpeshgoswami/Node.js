@@ -8,4 +8,8 @@ router.post("/add", studentControllers.AddStudent);
 
 router.get("/getAllStudents", studentControllers.getAllStudent);
 
+router.get("/:id", studentControllers.studentById);
+
+router.delete("/:id",studentControllers.deleteById);
+
 export default router;
