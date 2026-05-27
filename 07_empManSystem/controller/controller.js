@@ -2,7 +2,7 @@ import httpError from "../middleware/httpError.js";
 import Employee from "../model/model.js";
 
 const add = async (req, res, next) => {
-
+    
     try {
 
         const { name, emp_Id, PhoneNumber, salary, email } = req.body;

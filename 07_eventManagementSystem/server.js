@@ -1,10 +1,16 @@
 import express from "express";
+import dotenv from "dotenv";
 
 import httpError from "./middleware/httpError.js";
+import connectDB from "./config/DB.js";
+
+dotenv.config({ path: "./.env" });
 
 const app = express();
 
 app.use(express.json());
+
+// app.use("/event", router);
 
 app.get("/", (req, res, next) => {
     res.status(200).jason("hello from server")
@@ -22,9 +28,23 @@ app.get((error, req, res, next) => {
 
 const port = 5000;
 
-app.listen(port, (err) => {
-    if (err) {
-        return console.log(err.message)
+async function startServer() {
+
+    try {
+        const connect = await connectDB();
+
+        if (!connect) {
+            throw new Error("failed to connect DB")
+        }
+        app.listen(port, (err) => {
+            if (err) {
+                return console.log(err.message)
+            }
+            console.log(`server running port on ${port}`)
+        })
+    } catch (error) {
+        console.log(error.message);
+        process.exit(1);
     }
-    console.log(`server running port on ${port}`)
-})
+}
+startServer();

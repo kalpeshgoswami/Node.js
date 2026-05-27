@@ -5,20 +5,20 @@ async function connectDB() {
     try {
 
         const connect = await mongoose.connect(
-            process.evn.MONGO_URI
+            process.env.MONGO_URI
         );
+
+        console.log("env path", process.env.MONGO_URI);
 
         console.log("connect DB");
 
         return connect
-        
+
     } catch (error) {
-        
+
         throw new Error(error.message);
 
     }
+}
 
-}  
-
-
-export default connectDB();
+export default connectDB;
