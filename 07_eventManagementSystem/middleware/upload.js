@@ -23,5 +23,44 @@ const storage = multer.diskStorage({
         });
 
         cd(null, folderName)
+    },
+
+    filename: (res, file, cd) => {
+        const uniqueName = `${file.filename}-${Date.now()}-${file.originalname}`;
+
+        cd(null, uniqueName);
+    }
+
+});
+
+const fileFilter = (req, file, cd) => {
+
+    const ImageType = [
+        "image/jpg",
+        "image/jpeg",
+        "image/png"
+    ];
+
+    const DocumentType = [
+        "application/pdf"
+    ]
+
+    if (file.fieldname === "eventDocument") {
+        if (ImagesType.include(file.mimetype)) {
+            cb(null, true);
+        }
+        cb(new Error("only jpg, jpeg, png is allowed"));
+    }
+
+}
+
+const upload = multer({
+    storage,
+    fileFilter,
+    limits: {
+        fileSize: 20 * 1024 * 1024
     }
 });
+
+export default upload;
+

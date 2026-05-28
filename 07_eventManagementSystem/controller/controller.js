@@ -17,10 +17,8 @@ const create = async((req, res, next) => {
 
         const eventDocuments = req.files?.eventDocuments?.map((file) => file.path || null);
 
-
-
-        if (!eventData) {
-            return next(new httpError("event data is required", 404));
+        if (!eventDate) {
+            return next(new httpError("event date is required", 404));
         }
 
 
@@ -30,7 +28,7 @@ const create = async((req, res, next) => {
 
         await newEvent.save();
 
-        res.status(201).json({success:true,message:"New Event Added Successfully"});
+        res.status(201).json({ success: true, message: "New Event Added Successfully" });
 
 
     } catch (error) {
@@ -40,3 +38,5 @@ const create = async((req, res, next) => {
     }
 
 })
+
+export default create;
