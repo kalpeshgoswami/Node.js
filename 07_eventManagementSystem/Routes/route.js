@@ -1,31 +1,36 @@
 import express from "express";
-import upload from "../middleware/upload";
+import upload from "../middleware/upload.js";
+import controller from "../controller/controller.js";
 
 const router = express.Router();
 
-router.post("/Create", upload.fields)([
+router.post("/create", upload.fields([
     {
         name: "eventImage",
-        mexCount: 5
+        maxCount: 5
     },
     {
         name: "eventPoster",
-        mexCount: 1
+        maxCount: 1
     },
     {
         name: "eventBanner",
-        mexCountt: 1
+        maxCount: 1
     },
     {
         name: "eventSpeaker",
-        mexCount: 3
+        maxCount: 3
     },
     {
         name: "eventDocuments",
-        mexCount: 3
+        maxCount: 3
     },
 
-    eventController.Create
-]);
+    ]),
+
+    controller.create
+);
+
+router.get("/getAllEvent", controller.getAllEvent);
 
 export default router;

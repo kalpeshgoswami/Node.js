@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 
 import httpError from "./middleware/httpError.js";
 import connectDB from "./config/DB.js";
+import router from "./Routes/route.js";
 
 dotenv.config({ path: "./.env" });
 
@@ -10,14 +11,14 @@ const app = express();
 
 app.use(express.json());
 
-// app.use("/event", router);
+app.use("/event", router);
 
 app.get("/", (req, res, next) => {
-    res.status(200).jason("hello from server")
+   res.json("hello from server")
 });
 
-app.get((error, req, res, next) => {
-    if (res.headersSend) {
+app.use((error, req, res, next) => {
+    if (res.headersSent) {
         return next(error);
     }
 

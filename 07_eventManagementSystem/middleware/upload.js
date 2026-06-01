@@ -1,19 +1,21 @@
+import multer from "multer";
 import fs from "fs";
+
 
 const storage = multer.diskStorage({
 
-    destination: (req, res, cd) => {
+    destination: (req, file, cb) => {
         let folderName = "upload/";
 
-        if (file.filename === "eventImage") {
+        if (file.fieldname  === "eventImage") {
             folderName += "eventImage"
-        } else if (file.filename === "eventPoster") {
+        } else if (file.fieldname  === "eventPoster") {
             folderName += "eventPoster"
-        } else if (file.filename === "eventBanner") {
+        } else if (file.fieldname  === "eventBanner") {
             folderName += "eventBanner"
-        } else if (file.filename === "eventSpeaker") {
+        } else if (file.fieldname  === "eventSpeaker") {
             folderName += "eventSpeaker"
-        } else if (file.filename === "eventDocuments") {
+        } else if (file.fieldname  === "eventDocuments") {
             folderName += "eventDocuments"
         } else {
             folderName = "other"
@@ -22,18 +24,18 @@ const storage = multer.diskStorage({
             recursive: true
         });
 
-        cd(null, folderName)
+        cb(null, folderName)
     },
 
-    filename: (res, file, cd) => {
-        const uniqueName = `${file.filename}-${Date.now()}-${file.originalname}`;
+    filename: (req, file, cb) => {
+        const uniqueName = `${file.fieldname}-${Date.now()}-${file.originalname}`;
 
-        cd(null, uniqueName);
+        cb(null, uniqueName);
     }
 
 });
 
-const fileFilter = (req, file, cd) => {
+const fileFilter = (req, file, cb) => {
 
     const ImageType = [
         "image/jpg",
@@ -45,8 +47,8 @@ const fileFilter = (req, file, cd) => {
         "application/pdf"
     ]
 
-    if (file.fieldname === "eventDocument") {
-        if (ImagesType.include(file.mimetype)) {
+    if (file.fieldname === "eventDocuments") {
+        if (DocumentType.includes(file.mimetype)) {
             cb(null, true);
         }
         cb(new Error("only jpg, jpeg, png is allowed"));
