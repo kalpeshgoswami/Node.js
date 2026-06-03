@@ -245,7 +245,7 @@ const updateEvent = async (req, res, next) => {
                 }
             });
 
-            EventData.EventImages = EventImages;
+            eventData.eventImage = eventImage;
 
 
         }
