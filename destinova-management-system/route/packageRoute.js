@@ -1,0 +1,11 @@
+import multer from "multer"
+import express from "express"
+
+import uploads from "../middleware/upload.js";
+import PackageController from "../controller/PackageController.js";
+
+const router = express.Router()
+
+router.post("/add", uploads.single("packageImage"), PackageController.addPackage)
+
+export default router;

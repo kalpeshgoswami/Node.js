@@ -1,6 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
+
 import connectDB from "./config/DB.js";
+
+import router from "./route/packageRoute.js";
 
 import httpError from "./middleware/HttpError.js";
 
@@ -10,16 +13,18 @@ const app = express();
 
 app.use(express.json());
 
+app.use("/package", router);
+
 app.get("/", (req, res) => {
     res.json("hello from server")
 });
 
 app.use((error, req, res, next) => {
-    if(res.headersSent){
+    if (res.headersSent) {
         return next(error)
     }
 
-    res.status(error.statusCode||500)
+    res.status(error.statusCode || 500).json({message:"internal server"})
 });
 
 const port = 5000;
