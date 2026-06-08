@@ -6,6 +6,8 @@ import PackageController from "../controller/PackageController.js";
 
 const router = express.Router()
 
-router.post("/add", uploads.single("packageImage"), PackageController.addPackage)
+router.post("/add", uploads.single("packageImage"), PackageController.addPackage);
+
+router.get("/getAllPackage", PackageController.getAllPackage);
 
 export default router;
