@@ -2,6 +2,7 @@ import httpError from "../middleware/HttpError.js";
 
 import Packages from "../model/package.js";
 
+// add package
 
 const addPackage = async (req, res, next) => {
 
@@ -60,7 +61,32 @@ const getAllPackage = async (req, res, next) => {
         return next(new httpError("route not found", 404)
         )
     }
-
 };
 
-export default { addPackage, getAllPackage };
+// find by id
+
+const getById = async (req, res, next) => {
+
+    try {
+
+        const { id } = req.params;
+
+        const packages = await Packages.findById(id);
+
+        if (!packages) {
+            return next(new httpError("package data is not founld", 404))
+        }
+
+        res.status(200).json({
+            success: true, message: "package data is found", packages
+        })
+
+    } catch (error) {
+        next(new httpError(error.message, 500))
+    }
+
+}
+
+
+
+export default { addPackage, getAllPackage, getById };
