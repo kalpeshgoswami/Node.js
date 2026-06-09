@@ -1,16 +1,14 @@
-import express from "express";
+import express from "express"
 import dotenv from "dotenv";
 
 import connectDB from "./config/DB.js";
-
 import router from "./route/packageRoute.js";
-
 import httpError from "./middleware/HttpError.js";
 
 dotenv.config({ path: "./.env" });
 
 const app = express();
-
+    
 app.use(express.json());
 
 app.use("/package", router);
@@ -24,7 +22,7 @@ app.use((error, req, res, next) => {
         return next(error)
     }
 
-    res.status(error.statusCode || 500).json({message:"internal server"})
+    res.status(error.statusCode || 500).json({ message: "internal server" })
 });
 
 const port = 5000;

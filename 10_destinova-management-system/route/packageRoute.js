@@ -10,4 +10,6 @@ router.post("/add", uploads.single("packageImage"), PackageController.addPackage
 
 router.get("/getAllPackage", PackageController.getAllPackage);
 
+router.get("/:id", PackageController.getById);
+
 export default router;
