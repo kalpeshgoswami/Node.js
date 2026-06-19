@@ -74,7 +74,7 @@ const getById = async (req, res, next) => {
         const packages = await Packages.findById(id);
 
         if (!packages) {
-            return next(new httpError("package data is not founld", 404))
+            return next(new httpError("package data is not found", 404))
         }
 
         res.status(200).json({
